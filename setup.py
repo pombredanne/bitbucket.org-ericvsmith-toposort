@@ -11,7 +11,9 @@ class PyTest(Command):
     def run(self):
         import sys, subprocess
         tests = [('test suite', ['-m', 'test.test_toposort']),
-                 ('doctests',   ['-m' 'doctest', 'README.txt'])]
+                 ]
+        if sys.hexversion >= 0x03000000:
+            tests.append(('doctests',   ['-m' 'doctest', 'README.txt']))
         for name, cmds in tests:
             print(name)
             errno = subprocess.call([sys.executable] + cmds)
