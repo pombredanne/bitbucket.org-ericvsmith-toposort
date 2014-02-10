@@ -13,16 +13,27 @@ or toposort) or topological ordering of a directed graph is a linear
 ordering of its vertices such that for every directed edge uv from
 vertex u to vertex v, u comes before v in the ordering.
 
+Input data description
+======================
+
+The input to the toposort function is a dict describing the
+dependencies among the input nodes. Each key is a dependent item, the
+corresponding value is a set containing the dependencies.
+
+Note that toposort does not care what the input values mean: it just
+compares them for equality. The examples here usually use integers,
+but they could be any hashable type.
+
 Typical usage
 =============
 
-The interpretation here is: If 2 depends on 11, 9 depends on 11 and 8,
-10 depends on 11 and 3 (and so on), then in what order should we
-process the items such that all items are processed before any of
-their dependencies?::
+The interpretation of the input data here is: If 2 depends on 11, 9
+depends on 11 and 8, 10 depends on 11 and 3 (and so on), then in what
+order should we process the items such that all items are processed
+before any of their dependencies?::
 
     >>> from __future__ import print_function
-    >>> from toposort import toposort
+    >>> from toposort import toposort, toposort_all
     >>> list(toposort({2: {2, 11},
     ...                9: {11, 8},
     ...                10: {11, 3},
@@ -51,6 +62,21 @@ and 2 depends on 1::
 Module contents
 ===============
 
-toposort(data)
+``toposort(data)``
 
-toposort_all(data, sort=True)
+``toposort_all(data, sort=True)``
+
+Like toposort(data), except that it returns a list of all of the
+depend values, in order. If sort is true, the returned items are sorted within
+each group before they are appended to the result::
+
+    >>> toposort_all({2: {2, 11},
+    ...               9: {11, 8},
+    ...               10: {11, 3},
+    ...               11: {7, 5},
+    ...               8: {7, 3},
+    ...              }, sort=True)
+    [3, 5, 7, 8, 11, 2, 9, 10]
+
+Note that this result is the same as the first example: ``[{3, 5, 7}, {8, 11}, {9, 2, 10}]``,
+except that the result is flattened, and within each set the items are sorted.
