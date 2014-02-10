@@ -68,7 +68,7 @@ items in the preceeding sets.
                 for item, dep in data.items()
                     if item not in ordered}
     if len(data) != 0:
-        raise ValueError('Cyclic dependencies exist among these items: {}'.format(' ,'.join(repr(x) for x in data.items())))
+        raise ValueError('Cyclic dependencies exist among these items: {}'.format(', '.join(repr(x) for x in data.items())))
 
 
 def toposort_all(data, sort=True):

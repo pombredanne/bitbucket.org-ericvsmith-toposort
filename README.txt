@@ -56,13 +56,17 @@ and 2 depends on 1::
     ...               }))
     Traceback (most recent call last):
         ...
-    ValueError: Cyclic dependencies exist among these items: (1, {2}) ,(2, {1})
+    ValueError: Cyclic dependencies exist among these items: (1, {2}), (2, {1})
 
 
 Module contents
 ===============
 
 ``toposort(data)``
+
+Returns an iterator describing the dependencies among items in the
+input data. Each returned item will be a set. Each member of this set
+has no dependencies in this set, or in any set previously returned.
 
 ``toposort_all(data, sort=True)``
 
