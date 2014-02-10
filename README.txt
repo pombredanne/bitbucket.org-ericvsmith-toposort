@@ -32,7 +32,6 @@ depends on 11, 8 and 10; 10 depends on 11 and 3 (and so on), then in what
 order should we process the items such that all nodes are processed
 before any of their dependencies?::
 
-    >>> from __future__ import print_function
     >>> from toposort import toposort, toposort_flatten
     >>> list(toposort({2: {11},
     ...                9: {11, 8, 10},
