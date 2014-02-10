@@ -1,0 +1,7 @@
+Change log
+==========
+
+0.1 <unreleased> Eric V. Smith
+----------------------------
+
+* Initial release.
