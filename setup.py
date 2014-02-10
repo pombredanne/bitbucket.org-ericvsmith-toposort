@@ -13,6 +13,8 @@ class PyTest(Command):
         tests = [('test suite', ['-m', 'test.test_toposort']),
                  ]
         if sys.hexversion >= 0x03000000:
+            # Skip doctests for python < 3.0. They use set literal reprs, which
+            #  are different in 2.7. Testing under 3.x is good enough.
             tests.append(('doctests',   ['-m' 'doctest', 'README.txt']))
         for name, cmds in tests:
             print(name)
