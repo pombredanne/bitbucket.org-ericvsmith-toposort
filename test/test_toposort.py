@@ -21,7 +21,7 @@
 
 import unittest
 
-from toposort import toposort, toposort_all
+from toposort import toposort, toposort_flatten
 
 class TestCase(unittest.TestCase):
     def test_simple(self):
@@ -136,7 +136,7 @@ class TestCase(unittest.TestCase):
 
 
 class TestCaseAll(unittest.TestCase):
-    def test_sort_all(self):
+    def test_sort_flatten(self):
         data = {2: {11},
                 9: {11, 8},
                 10: {11, 3},
@@ -150,12 +150,25 @@ class TestCaseAll(unittest.TestCase):
         results = []
         for item in expected:
             results.extend(sorted(item))
-        self.assertEqual(toposort_all(data), results)
+        self.assertEqual(toposort_flatten(data), results)
 
-        # and the unsorted results. break the results up into groups
-        actual = toposort_all(data, False)
+        # and the unsorted results. break the results up into groups to compare them
+        actual = toposort_flatten(data, False)
         results = [{i for i in actual[0:3]}, {i for i in actual[3:5]}, {i for i in actual[5:8]}]
         self.assertEqual(results, expected)
 
+class TestAll(unittest.TestCase):
+    def test_all(self):
+        import toposort
+
+        # check that __all__ in the module contains everything that should be
+        #  public, and only those symbols
+        all = set(toposort.__all__)
+
+        for sym in dir(toposort):
+            if not sym.startswith('_'):
+                self.assertIn(sym, all, 'symbol missing from __all__')
+                all.remove(sym)
+        self.assertEqual(all, set(), 'unexpected symbol in __all__')
 
 unittest.main()

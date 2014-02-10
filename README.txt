@@ -17,12 +17,12 @@ Input data description
 ======================
 
 The input to the toposort function is a dict describing the
-dependencies among the input nodes. Each key is a dependent item, the
-corresponding value is a set containing the dependencies.
+dependencies among the input nodes. Each key is a dependent node, the
+corresponding value is a set containing the dependent nodes.
 
-Note that toposort does not care what the input values mean: it just
-compares them for equality. The examples here usually use integers,
-but they could be any hashable type.
+Note that toposort does not care what the input node values mean: it
+just compares them for equality. The examples here usually use
+integers, but they could be any hashable type.
 
 Typical usage
 =============
@@ -33,7 +33,7 @@ order should we process the items such that all items are processed
 before any of their dependencies?::
 
     >>> from __future__ import print_function
-    >>> from toposort import toposort, toposort_all
+    >>> from toposort import toposort, toposort_flatten
     >>> list(toposort({2: {2, 11},
     ...                9: {11, 8},
     ...                10: {11, 3},
@@ -43,7 +43,9 @@ before any of their dependencies?::
     [{3, 5, 7}, {8, 11}, {9, 2, 10}]
 
 And the answer is: process 3, 5, and 7 (in any order), then process 8
-and 11, then process 2, 9, and 10.
+and 11, then process 2, 9, and 10. Note that 3, 5, and 7 are returned
+first because they do not depend on anything. They are then removed
+from consideration, and then 8 and 11 don't depend on anything, etc.
 
 Circular dependencies
 =====================
@@ -68,18 +70,18 @@ Returns an iterator describing the dependencies among items in the
 input data. Each returned item will be a set. Each member of this set
 has no dependencies in this set, or in any set previously returned.
 
-``toposort_all(data, sort=True)``
+``toposort_flatten(data, sort=True)``
 
 Like toposort(data), except that it returns a list of all of the
 depend values, in order. If sort is true, the returned items are sorted within
 each group before they are appended to the result::
 
-    >>> toposort_all({2: {2, 11},
-    ...               9: {11, 8},
-    ...               10: {11, 3},
-    ...               11: {7, 5},
-    ...               8: {7, 3},
-    ...              }, sort=True)
+    >>> toposort_flatten({2: {2, 11},
+    ...                   9: {11, 8},
+    ...                   10: {11, 3},
+    ...                   11: {7, 5},
+    ...                   8: {7, 3},
+    ...                  }, sort=True)
     [3, 5, 7, 8, 11, 2, 9, 10]
 
 Note that this result is the same as the first example: ``[{3, 5, 7}, {8, 11}, {9, 2, 10}]``,

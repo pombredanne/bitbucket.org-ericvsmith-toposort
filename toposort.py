@@ -35,7 +35,7 @@
 
 from functools import reduce as _reduce
 
-__all__ = ['toposort', 'toposort_all']
+__all__ = ['toposort', 'toposort_flatten']
 
 def toposort(data):
     """Dependencies are expressed as a dictionary whose keys are items
@@ -71,14 +71,12 @@ items in the preceeding sets.
         raise ValueError('Cyclic dependencies exist among these items: {}'.format(', '.join(repr(x) for x in data.items())))
 
 
-def toposort_all(data, sort=True):
+def toposort_flatten(data, sort=True):
     """Returns a single list of dependencies. For any set returned by
 toposort(), those items are sorted and appended to the result (just to
-make the results deterministic."""
+make the results deterministic)."""
 
     result = []
     for d in toposort(data):
         result.extend((sorted if sort else list)(d))
     return result
-
-
