@@ -5,7 +5,7 @@ toposort
 Overview
 ========
 
-Implements a topological sort algorith.
+Implements a topological sort algorithm.
 
 From `Wikipedia <http://en.wikipedia.org/wiki/Topological_sorting>`_:
 In computer science, a topological sort (sometimes abbreviated topsort
@@ -29,7 +29,7 @@ Typical usage
 
 The interpretation of the input data here is: If 2 depends on 11; 9
 depends on 11, 8 and 10; 10 depends on 11 and 3 (and so on), then in what
-order should we process the items such that all items are processed
+order should we process the items such that all nodes are processed
 before any of their dependencies?::
 
     >>> from __future__ import print_function
@@ -43,10 +43,11 @@ before any of their dependencies?::
     [{3, 5, 7}, {8, 11}, {2, 10}, {9}]
 
 And the answer is: process 3, 5, and 7 (in any order); then process 8
-and 11; then process 2, and 10; then process 9. Note that 3, 5, and 7
+and 11; then process 2 and 10; then process 9. Note that 3, 5, and 7
 are returned first because they do not depend on anything. They are
 then removed from consideration, and then 8 and 11 don't depend on
-anything remaining, etc.
+anything remaining. This process continues until all nodes are
+returned, or a circular dependency is detected.
 
 Circular dependencies
 =====================
@@ -67,14 +68,14 @@ Module contents
 
 ``toposort(data)``
 
-Returns an iterator describing the dependencies among items in the
+Returns an iterator describing the dependencies among nodes in the
 input data. Each returned item will be a set. Each member of this set
 has no dependencies in this set, or in any set previously returned.
 
 ``toposort_flatten(data, sort=True)``
 
 Like toposort(data), except that it returns a list of all of the
-depend values, in order. If sort is true, the returned items are sorted within
+depend values, in order. If sort is true, the returned nodes are sorted within
 each group before they are appended to the result::
 
     >>> toposort_flatten({2: {11},
@@ -86,5 +87,5 @@ each group before they are appended to the result::
     [3, 5, 7, 8, 11, 2, 10, 9]
 
 Note that this result is the same as the first example: ``[{3, 5, 7}, {8, 11}, {2, 10}, {9}]``,
-except that the result is flattened, and within each set the items
+except that the result is flattened, and within each set the nodes
 are sorted.
