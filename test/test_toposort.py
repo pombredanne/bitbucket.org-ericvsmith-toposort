@@ -166,7 +166,8 @@ class TestAll(unittest.TestCase):
         all = set(toposort.__all__)
 
         # check that things in __all__ only appear once
-        self.assertEqual(len(all), len(toposort.__all__))
+        self.assertEqual(len(all), len(toposort.__all__),
+                         'some symbols appear more than once in __all__')
 
         # get the list of public symbols
         found = set(name for name in dir(toposort) if not name.startswith('_'))
