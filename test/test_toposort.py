@@ -165,10 +165,13 @@ class TestAll(unittest.TestCase):
         #  public, and only those symbols
         all = set(toposort.__all__)
 
-        for sym in dir(toposort):
-            if not sym.startswith('_'):
-                self.assertIn(sym, all, 'symbol missing from __all__')
-                all.remove(sym)
-        self.assertEqual(all, set(), 'unexpected symbol in __all__')
+        # check that things in __all__ only appear once
+        self.assertEqual(len(all), len(toposort.__all__))
+
+        # get the list of public symbols
+        found = set(name for name in dir(toposort) if not name.startswith('_'))
+
+        # make sure it matches __all__
+        self.assertEqual(all, found)
 
 unittest.main()
