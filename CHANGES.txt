@@ -1,6 +1,11 @@
 Change log
 ==========
 
+0.2 2014-02-10 Eric V. Smith
+----------------------------
+
+* Modify setup.py to produce python-toposort for bdist_rpm.
+
 0.1 2014-02-10 Eric V. Smith
 ----------------------------
 
