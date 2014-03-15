@@ -1,6 +1,12 @@
 Change log
 ==========
 
+<unreleased> Eric V. Smith
+----------------------------
+
+* Add MANIFEST.in to MANIFEST.in, so that it is created in the sdist
+  (issue #1).
+
 0.2 2014-02-11 Eric V. Smith
 ----------------------------
 
