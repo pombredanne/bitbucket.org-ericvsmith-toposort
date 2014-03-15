@@ -1,8 +1,10 @@
 Change log
 ==========
 
-<unreleased> Eric V. Smith
+1.0 2014-03-14 Eric V. Smith
 ----------------------------
+
+* Release version 1.0. The API is stable.
 
 * Add MANIFEST.in to MANIFEST.in, so that it is created in the sdist
   (issue #1).
