@@ -93,4 +93,4 @@ are sorted.
 Testing
 =======
 
-To test, run 'python setup.py test'.
+To test, run 'python setup.py test'. On python >= 3.0, this also runs the doctests.
