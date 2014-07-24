@@ -1,6 +1,15 @@
 Change log
 ==========
 
+1.1 2014-07-24 Eric V. Smith
+----------------------------
+
+* Release version 1.1. No code changes.
+
+* Add a REAME.txt entry on running the test suite.
+
+* Fix missing test/__init__.py in the sdist.
+
 1.0 2014-03-14 Eric V. Smith
 ----------------------------
 

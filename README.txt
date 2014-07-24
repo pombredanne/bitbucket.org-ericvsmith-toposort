@@ -88,3 +88,9 @@ each group before they are appended to the result::
 Note that this result is the same as the first example: ``[{3, 5, 7}, {8, 11}, {2, 10}, {9}]``,
 except that the result is flattened, and within each set the nodes
 are sorted.
+
+
+Testing
+=======
+
+To test, run 'python setup.py test'.
