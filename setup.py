@@ -11,10 +11,10 @@ import sys
 #  I adjust the package name. With Python 2.7, that's enough. I'm not
 #  sure about 3.x.
 
+name = 'toposort'
 if 'bdist_rpm' in sys.argv:
-    name = 'python-toposort'
-else:
-    name = 'toposort'
+    name = 'python{0}-{1}'.format('' if sys.version_info.major == 2 else '3', name)
+
 
 # run our tests
 class PyTest(Command):
@@ -40,7 +40,7 @@ class PyTest(Command):
 
 
 setup(name=name,
-      version='1.1',
+      version='1.2',
       url='https://bitbucket.org/ericvsmith/toposort',
       author='Eric V. Smith',
       author_email='eric@trueblade.com',
@@ -52,6 +52,7 @@ setup(name=name,
                    'Topic :: Software Development :: Libraries :: Python Modules',
                    'Programming Language :: Python :: 2.7',
                    'Programming Language :: Python :: 3.3',
+                   'Programming Language :: Python :: 3.4',
                    ],
       license='Apache License Version 2.0',
       py_modules=['toposort'],
