@@ -1,8 +1,8 @@
 Change log
 ==========
 
-1.2 <unreleased> Eric V. Smith
-------------------------------
+1.2 2015-05-15 Eric V. Smith
+----------------------------
 
 * Changed RPM name to python3-toposort if running with python 3.
 
