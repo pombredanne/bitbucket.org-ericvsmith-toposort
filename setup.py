@@ -40,7 +40,7 @@ class PyTest(Command):
 
 
 setup(name=name,
-      version='1.2',
+      version='1.3',
       url='https://bitbucket.org/ericvsmith/toposort',
       author='Eric V. Smith',
       author_email='eric@trueblade.com',
