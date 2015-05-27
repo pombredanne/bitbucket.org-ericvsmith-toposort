@@ -37,12 +37,11 @@ from functools import reduce as _reduce
 
 __all__ = ['toposort', 'toposort_flatten']
 
-class CyclicDependency(Exception):
+class CyclicDependency(ValueError):
     def __init__(self, cyclic):
+        s = 'Cyclic dependencies exist among these items: {}'.format(', '.join(repr(x) for x in cyclic.items()))
+        super(CyclicDependency, self).__init__(s)
         self.cyclic = cyclic
-
-    def __str__(self):
-        return 'Cyclic dependencies exist among these items: %r' % self.cyclic
 
 def toposort(data):
     """Dependencies are expressed as a dictionary whose keys are items
