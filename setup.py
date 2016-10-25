@@ -1,5 +1,5 @@
 from __future__ import print_function
-from distutils.core import setup, Command
+from setuptools import setup, Command
 import sys
 
 # This is a hack in order to get the package name to be different when

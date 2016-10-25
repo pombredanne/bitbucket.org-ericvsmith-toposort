@@ -10,6 +10,9 @@ Change log
   data involved in the circular dependency (issue #2).  Thanks
   lilydjwg for the initial patch.
 
+* To make building wheels easier, always require setuptools in
+  setup.py (issue #5).
+
 1.4 2015-05-16 Eric V. Smith
 ----------------------------
 
