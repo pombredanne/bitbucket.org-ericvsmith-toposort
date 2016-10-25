@@ -13,6 +13,9 @@ Change log
 * To make building wheels easier, always require setuptools in
   setup.py (issue #5).
 
+* Mark wheel as being universal, that is, supporting both Python 2.7
+  and 3.x (issue #7).
+
 1.4 2015-05-16 Eric V. Smith
 ----------------------------
 
