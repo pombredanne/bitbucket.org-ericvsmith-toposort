@@ -1,8 +1,8 @@
 Change log
 ==========
 
-1.5 <unreleased> Eric V. Smith
-------------------------------
+1.5 2016-10-24 Eric V. Smith
+----------------------------
 
 * When a circular dependency error is detected, raise a specific
   exception, CircularDependencyError, which is a subclass of

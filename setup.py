@@ -25,7 +25,7 @@ class PyTest(Command):
 
 
 setup(name='toposort',
-      version='1.4',
+      version='1.5',
       url='https://bitbucket.org/ericvsmith/toposort',
       author='Eric V. Smith',
       author_email='eric@trueblade.com',
