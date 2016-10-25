@@ -35,13 +35,17 @@
 
 from functools import reduce as _reduce
 
-__all__ = ['toposort', 'toposort_flatten']
+__all__ = ['toposort', 'toposort_flatten', 'CircularDependencyError']
 
-class CyclicDependency(ValueError):
-    def __init__(self, cyclic):
-        s = 'Cyclic dependencies exist among these items: {}'.format(', '.join(repr(x) for x in cyclic.items()))
-        super(CyclicDependency, self).__init__(s)
-        self.cyclic = cyclic
+
+class CircularDependencyError(ValueError):
+    def __init__(self, data):
+        # Sort the data just to make the output consistent, for use in
+        #  error messages.  That's convenient for doctests.
+        s = 'Circular dependencies exist among these items: {{{}}}'.format(', '.join('{!r}:{!r}'.format(key, value) for key, value in sorted(data.items())))
+        super(CircularDependencyError, self).__init__(s)
+        self.data = data
+
 
 def toposort(data):
     """Dependencies are expressed as a dictionary whose keys are items
@@ -74,7 +78,7 @@ items in the preceeding sets.
                 for item, dep in data.items()
                     if item not in ordered}
     if len(data) != 0:
-        raise CyclicDependency(data)
+        raise CircularDependencyError(data)
 
 
 def toposort_flatten(data, sort=True):

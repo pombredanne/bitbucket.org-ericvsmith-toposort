@@ -1,6 +1,37 @@
 Change log
 ==========
 
+1.5 <unreleased> Eric V. Smith
+------------------------------
+
+* When a circular dependency error is detected, raise a specific
+  exception, CircularDependencyError, which is a subclass of
+  ValueError.  The 'data' attribute of the exception will contain the
+  data involved in the circular dependency (issue #2).  Thanks
+  lilydjwg for the initial patch.
+
+1.4 2015-05-16 Eric V. Smith
+----------------------------
+
+* Removed 'test' package, so it won't get installed by bdist_*. It's still
+  included in sdists.
+
+* No code changes.
+
+1.3 2015-05-15 Eric V. Smith
+----------------------------
+
+* Fixed change log date.
+
+* No code changes.
+
+1.2 2015-05-15 Eric V. Smith
+----------------------------
+
+* Changed RPM name to python3-toposort if running with python 3.
+
+* No code changes.
+
 1.1 2014-07-24 Eric V. Smith
 ----------------------------
 

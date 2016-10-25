@@ -51,15 +51,19 @@ returned, or a circular dependency is detected.
 Circular dependencies
 =====================
 
-A circular dependency will raise a ValueError. Here 1 depends on 2,
-and 2 depends on 1::
+A circular dependency will raise a CyclicDependencyError, which is
+derived from ValueError.  Here 1 depends on 2, and 2 depends on 1::
 
     >>> list(toposort({1: {2},
     ...                2: {1},
     ...               }))
     Traceback (most recent call last):
         ...
-    ValueError: Cyclic dependencies exist among these items: (1, {2}), (2, {1})
+    toposort.CircularDependencyError: Circular dependencies exist among these items: {1:{2}, 2:{1}}
+
+In addition, the 'data' attribute of the raised CyclicDependencyError
+will contain a dict containing the subset of the input data involved
+in the circular dependency.
 
 
 Module contents

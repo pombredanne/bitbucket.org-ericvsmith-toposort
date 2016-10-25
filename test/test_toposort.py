@@ -21,7 +21,7 @@
 
 import unittest
 
-from toposort import toposort, toposort_flatten
+from toposort import toposort, toposort_flatten, CircularDependencyError
 
 class TestCase(unittest.TestCase):
     def test_simple(self):
@@ -104,15 +104,37 @@ class TestCase(unittest.TestCase):
 
     def test_cycle(self):
         # a simple, 2 element cycle
+        # make sure we can catch this both as ValueError and CircularDependencyError
         self.assertRaises(ValueError, list, toposort({1: {2},
                                                       2: {1}
                                                       }))
+        with self.assertRaises(CircularDependencyError) as ex:
+            list(toposort({1: {2},
+                           2: {1}
+                           }))
+        self.assertEqual(ex.exception.data, {1: {2}, 2: {1}})
 
         # an indirect cycle
         self.assertRaises(ValueError, list, toposort({1: {2},
                                                       2: {3},
                                                       3: {1},
                                                       }))
+        with self.assertRaises(CircularDependencyError) as ex:
+            list(toposort({1: {2},
+                           2: {3},
+                           3: {1},
+                           }))
+        self.assertEqual(ex.exception.data, {1: {2}, 2: {3}, 3: {1}})
+
+        # not all elements involved in a cycle
+        with self.assertRaises(CircularDependencyError) as ex:
+            list(toposort({1: {2},
+                           2: {3},
+                           3: {1},
+                           5: {4},
+                           4: {6},
+                           }))
+        self.assertEqual(ex.exception.data, {1: set([2]), 2: set([3]), 3: set([1])})
 
     def test_input_not_modified(self):
         data = {2: {11},
@@ -156,6 +178,7 @@ class TestCaseAll(unittest.TestCase):
         actual = toposort_flatten(data, False)
         results = [{i for i in actual[0:3]}, {i for i in actual[3:5]}, {i for i in actual[5:8]}]
         self.assertEqual(results, expected)
+
 
 class TestAll(unittest.TestCase):
     def test_all(self):
